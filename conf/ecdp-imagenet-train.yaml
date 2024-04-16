@@ -1,0 +1,43 @@
+model:
+  type: ecdp
+  input_channels: 3
+  sr_factor: 4
+
+  rrdb_num_blocks: 16
+  rrdb_block_selection: [1, 5, 10, 15]
+  rrdb_network_features: 64
+  rrdb_intermediate_features: 32
+  rrdb_channels: 256  # rrdb_network_features * len(rrdb_block_selection)
+
+
+  prior: gaussian
+
+train:
+  use_cuda: true
+  tensorboard: true
+  random_seed: null
+  distributed: false
+
+  finetune_pretrained_model: null
+  finetune_percep: false
+  finetune_pixel: false
+  finetune_gan: false
+
+  dataset: imagenet
+  epochs: 500
+  train_epoch_clip: 200
+  val_epoch_clip: 10
+  batch_size: 6
+  train_image_size: 256
+  lr: 2.0e-4
+  lr_decay_factor: 0.5
+  lr_decay_epochs: [400, 450]
+  lr_warmup_steps: 500
+  clip_grad_value: 10
+  param_running_avg: 1000
+
+  visualize_batch_size: 6
+  test_interval: 30
+  val_images_interval: 50
+  checkpoint_backup_interval: 50
+  test_batch_size: 6
